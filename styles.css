@@ -1,0 +1,14 @@
+body {
+    background: url('./assets/imgs/clothes.jpg') center top fixed;
+    background-size: cover;
+}
+
+.container {
+    margin-top: 40px;
+    margin-bottom: 60px;
+}
+
+.col {
+    background-color: rgba(165, 172, 183, .6);  
+    padding: 20px;  
+}

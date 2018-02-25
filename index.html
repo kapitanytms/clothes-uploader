@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cloth Uploader</title>
+    <!-- Bootstrap style -->
+    <link 
+    rel="stylesheet" 
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+    crossorigin="anonymous">
+    <!-- custom style -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-8 offset-md-2">
+                <h1 class="text-center">Clothes Uploader</h1>        
+                <form action="">
+                    <div class="form-group">
+                        <label for="sizes">Sizes:</label>
+                        <div id="sizes" class="form-control">
+                            <div class="form-check form-check-inline">
+                                <input 
+                                    type="checkbox" 
+                                    class="form-check-input"
+                                    id="size-s"
+                                    value="S">
+                                <label class="form-check-label" for="size-s">S</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input 
+                                    type="checkbox" 
+                                    class="form-check-input"
+                                    id="size-m"
+                                    value="M">
+                                <label class="form-check-label" for="size-m">M</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input 
+                                    type="checkbox" 
+                                    class="form-check-input"
+                                    id="size-l"
+                                    value="L">
+                                <label class="form-check-label" for="size-l">L</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input 
+                                    type="checkbox" 
+                                    class="form-check-input"
+                                    id="size-xl"
+                                    value="XL">
+                                <label class="form-check-label" for="size-xl">XL</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" id="price" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="color">Colors:</label>
+                        <input type="text" id="color" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="image-upload">Images</label>
+                        <input type="file" id="file" class="form-control" id="image-upload">
+                        <span id="linkbox"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select name="gender" id="gender" class="form-control">
+                            <option selected value="Male">Male</option>
+                            <option value="Female">Female</option>                        
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select name="category" id="category" class="form-control">
+                            <option value="blazers">Blazers</option>
+                            <option value="jeans">Jeans</option>
+                            <option value="skirts">Skirts</option>
+                            <option value="t-shirts">T-Shirts</option>
+                            <option value="suits">Suits</option>
+                            <option value="shoes">Shoes</option>
+                            <option value="blouses,shirts,t-shirts">Blouses, shirts, t-shirts</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Adult</label>
+                        <div class="form-control">
+                            <div class="form-check form-check-inline">
+                                <input 
+                                    type="checkbox" 
+                                    class="form-check-input"
+                                    id="adult"
+                                    value="true">
+                                <label class="form-check-label" for="adult">Adult</label>
+                            </div> 
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-block">Push</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap scripts -->
+    <script 
+    src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
+    crossorigin="anonymous"></script>
+    <script 
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
+    crossorigin="anonymous"></script> 
+    <script 
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
+    crossorigin="anonymous"></script>
+
+    
+  <script src="/__/firebase/3.9.0/firebase-app.js"></script>
+  <script src="/__/firebase/3.9.0/firebase-auth.js"></script>
+  <script src="/__/firebase/3.9.0/firebase-storage.js"></script>
+  <script src="/__/firebase/init.js"></script>
+
+  <script>
+    var auth = firebase.auth();
+    var storageRef = firebase.storage().ref();
+
+    function handleFileSelect(evt) {
+      evt.stopPropagation();
+      evt.preventDefault();
+      var file = evt.target.files[0];
+
+      var metadata = {
+        'contentType': file.type
+      };
+
+      // Push to child path.
+      // [START oncomplete]
+      storageRef.child('images/' + file.name).put(file, metadata).then(function(snapshot) {
+        console.log('Uploaded', snapshot.totalBytes, 'bytes.');
+        console.log(snapshot.metadata);
+        var url = snapshot.downloadURL;
+        console.log('File available at', url);
+        // [START_EXCLUDE]
+        document.getElementById('linkbox').innerHTML = '<img class="img-fluid" style="height: 200px;" src="' +  url + '">';
+        // [END_EXCLUDE]
+      }).catch(function(error) {
+        // [START onfailure]
+        console.error('Upload failed:', error);
+        // [END onfailure]
+      });
+      // [END oncomplete]
+    }
+
+    window.onload = function() {
+      document.getElementById('file').addEventListener('change', handleFileSelect, false);
+      document.getElementById('file').disabled = true;
+
+      auth.onAuthStateChanged(function(user) {
+        if (user) {
+          console.log('Anonymous user signed-in.', user);
+          document.getElementById('file').disabled = false;
+        } else {
+          console.log('There was no anonymous session. Creating a new anonymous user.');
+          // Sign the user in anonymously since accessing Storage requires the user to be authorized.
+          auth.signInAnonymously();
+        }
+      });
+    }
+  </script>
+</body>
+</html>
