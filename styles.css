@@ -12,3 +12,8 @@ body {
     background-color: rgba(165, 172, 183, .6);  
     padding: 20px;  
 }
+
+img {
+    height: 100px;
+    width: auto;
+}

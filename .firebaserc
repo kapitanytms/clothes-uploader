@@ -1,5 +1,6 @@
 {
   "projects": {
-    "image-upload": "clothes-webshop"
+    "image-upload": "clothes-webshop",
+    "image-uploader": "clothes-webshop"
   }
 }
